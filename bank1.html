@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank1 - KYC Registration</title>
+    <link rel="stylesheet" href="css/bank1.css"> <!-- Link to your updated CSS -->
+</head>
+<body>
+    <h1>KYC Registration</h1>
+    
+    <!-- User registration inputs -->
+    <label for="nameInput">Name:</label>
+    <input type="text" id="nameInput" placeholder="Enter your name" required>
+    
+    <label for="dobInput">DOB:</label>
+    <input type="text" id="dobInput" placeholder="Enter your date of birth" required>
+    
+    <button id="registerButton">Register</button>
+    
+    <h2>Find KYC ID</h2>
+    <!-- Inputs for Find KYC ID -->
+    <label for="findNameInput">Name:</label>
+    <input type="text" id="findNameInput" placeholder="Enter name to find KYC ID" required>
+    
+    <label for="findDobInput">DOB:</label>
+    <input type="text" id="findDobInput" placeholder="Enter DOB to find KYC ID" required>
+    
+    <button id="findKycIdButton">Find KYC ID</button>
+    <div id="kycIdDisplay" class="sliding-animation">KYC ID: Not found</div>
+    
+    <h2>Move to Pending</h2>
+    <!-- Input for Move to Pending -->
+    <label for="userIdToPending">User ID:</label>
+    <input type="text" id="userIdToPending" placeholder="Enter User ID to move to pending" required>
+    
+    <button id="moveToPendingButton">Move to Pending</button>
+    <div id="moveStatusDisplay"></div>
+
+    <!-- Import ethers.js CDN for easier setup -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.min.js"></script>
+    <script src="js/bank1.js"></script>
+</body>
+</html>

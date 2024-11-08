@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank2 Page</title>
+    <link rel="stylesheet" href="css/bank2.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bank2 - Manage KYC</h1>
+
+        <!-- Register KYC Form -->
+        <div id="registerKYC">
+            <h2>Register New KYC</h2>
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" placeholder="Enter name">
+            <br>
+            <label for="dobInput">DOB:</label>
+            <input type="text" id="dobInput" placeholder="Enter date of birth">
+            <br>
+            <button id="registerButton">Register KYC</button>
+        </div>
+
+        <!-- Find KYC ID Form -->
+        <div id="findKycId">
+            <h2>Find KYC ID</h2>
+            <label for="findNameInput">Name:</label>
+            <input type="text" id="findNameInput" placeholder="Enter name">
+            <br>
+            <label for="findDobInput">DOB:</label>
+            <input type="text" id="findDobInput" placeholder="Enter date of birth">
+            <br>
+            <button id="findKycIdButton">Find KYC ID</button>
+            <p id="kycIdDisplay"></p>
+        </div>
+
+        <!-- Move to Pending KYC Form -->
+        <div id="moveToPending">
+            <h2>Move User to Pending KYC</h2>
+            <label for="userIdToPending">User ID:</label>
+            <input type="text" id="userIdToPending" placeholder="Enter user ID">
+            <br>
+            <button id="moveToPendingButton">Move to Pending</button>
+            <p id="moveStatusDisplay"></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.min.js"></script>
+    <script src="js/bank2.js"></script>
+</body>
+</html>

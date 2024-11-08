@@ -1,0 +1,80 @@
+/* Container styling */
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 1s forwards; /* Apply sliding animation to the container */
+}
+
+/* Section styling */
+#registerSection, #checkSection {
+    margin-bottom: 40px;
+    animation: slideIn 1s forwards; /* Add slide animation for each section */
+}
+
+/* Form input and button styling */
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+    animation: slideIn 1s forwards; /* Slide animation for labels */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    animation: slideIn 1s forwards; /* Slide animation for inputs */
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    animation: slideIn 1s forwards; /* Slide animation for buttons */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Sliding animation */
+.sliding-animation {
+    position: relative;
+    opacity: 0;
+    left: -100%;
+    animation: slideIn 1s forwards; /* Adjust the timing as per your requirement */
+}
+
+/* Keyframes for sliding effect */
+@keyframes slideIn {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+/* Result styling */
+#kycResult {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    animation: slideIn 1s forwards; /* Slide animation for result */
+}
+
+/* For elements like buttons, inputs, sections, etc., you can also add sliding effects individually as shown above. */

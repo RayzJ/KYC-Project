@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Status Page</title>
+    <link rel="stylesheet" href="css/customer.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Check User Status</h1>
+        <div class="buttons">
+            <button id="showRegistered">Show All Registered</button>
+            <button id="showPending">Show All Pending</button>
+            <button id="showApproved">Show All Approved</button>
+            <button id="showRejected">Show All Rejected</button>
+        </div>
+        <table id="userStatus">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Bank</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- User status rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.min.js"></script>
+    
+    <script src="js/customer.js"></script>
+</body>
+</html>

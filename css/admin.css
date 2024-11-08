@@ -1,0 +1,105 @@
+/* Fullscreen layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Allow stacking */
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Optional background color */
+}
+
+/* Top-right button */
+.top-right {
+    position: absolute;
+    top: 10px; /* Adjusted for better placement */
+    right: 10px; /* Adjusted for better placement */
+}
+
+/* Container for content */
+.container {
+    width: 80%; /* Adjust width as necessary */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slideIn 1s forwards; /* Apply sliding animation to the container */
+}
+
+/* Section styling */
+#checkUserIdContainer, #approveRejectContainer, #kycStatusContainer {
+    margin-bottom: 40px;
+    animation: slideIn 1s forwards; /* Add slide animation for each section */
+}
+
+/* Form input and button styling */
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+    animation: slideIn 1s forwards; /* Slide animation for labels */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    animation: slideIn 1s forwards; /* Slide animation for inputs */
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    animation: slideIn 1s forwards; /* Slide animation for buttons */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Sliding animation */
+.sliding-animation {
+    position: relative;
+    opacity: 0;
+    left: -100%;
+    animation: slideIn 1s forwards; /* Adjust the timing as per your requirement */
+}
+
+/* Keyframes for sliding effect */
+@keyframes slideIn {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+/* Result styling */
+#statusDisplay {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    animation: slideIn 1s forwards; /* Slide animation for status result */
+}
+
+#userIdDisplay {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    animation: slideIn 1s forwards; /* Slide animation for user ID result */
+}
+
+/* For elements like buttons, inputs, sections, etc., you can also add sliding effects individually as shown above. */
