@@ -1,83 +1,95 @@
 /* General Styles */
 body, html {
+    background-image: url('https://i.pinimg.com/564x/70/79/48/70794809ac1ad01280d5b30860d7829d.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Light background color */
 }
 
-/* Main Container */
+/* Main Outer Container */
+.outer-container {
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slideIn 1s forwards;
+}
+
+/* Inner Container for Sections */
 .container {
     display: flex;
-    flex-direction: column; /* Arrange all sections in column order */
-    justify-content: flex-start; /* Align items at the top */
-    align-items: center; /* Center-align items */
-    padding: 20px;
-    animation: slideIn 1s forwards; /* Apply sliding animation to the container */
-    position: relative; /* Add relative positioning */
+    flex-direction: row; /* Arrange sections in a row */
+    justify-content: space-between; /* Distribute sections evenly */
+    gap: 20px; /* Space between sections */
+    width: 100%;
+    padding: 20px 0;
 }
 
 /* Heading Styling */
 h1 {
     margin-bottom: 20px; /* Add some space below the heading */
     text-align: center; /* Center the heading */
+    color: #333333; /* Darker text color for contrast */
     animation: slideIn 1s forwards; /* Apply sliding animation to heading */
     position: relative; /* Add relative positioning */
 }
 
-/* Section Styling */
-.container > div {
-    width: 100%; /* Ensure each section takes full width */
-    max-width: 800px; /* Limit the width to 800px */
-    margin-bottom: 30px; /* Add space between sections */
+/* Arrange the three sections in a row */
+.form-section {
+    width: 30%; /* Each section takes 30% of the container's width */
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: slideIn 1s forwards; /* Apply sliding animation to sections */
     position: relative; /* Add relative positioning */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Input and button styles */
-input {
-    width: 100%; /* Full width for input fields */
+/* Make the form fields and button full-width */
+input, button {
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
-    animation: slideIn 1s forwards; /* Apply sliding animation to inputs */
-    position: relative; /* Add relative positioning */
+    font-size: 1em; /* Slightly larger font for readability */
 }
 
 button {
-    padding: 10px 15px;
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Full width for buttons */
-    animation: slideIn 1s forwards; /* Apply sliding animation to buttons */
-    position: relative; /* Add relative positioning */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Table styling */
-table {
-    margin-top: 20px;
-    border-collapse: collapse;
-    width: 100%;
-    animation: slideIn 1s forwards; /* Apply sliding animation to tables */
-    position: relative; /* Add relative positioning */
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+/* Ensure the sections are displayed inline on smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically on small screens */
+        gap: 20px;
+    }
+    .form-section {
+        width: 100%; /* Full width on small screens */
+    }
 }
 
 /* Sliding animation */

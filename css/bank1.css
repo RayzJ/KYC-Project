@@ -27,6 +27,11 @@ body {
     gap: 30px; /* Add space between sections */
 }
 
+/* Remove KYC Registration title */
+h1 {
+    display: none;
+}
+
 /* Section styling for each form block */
 #registerSection, #findKycSection, #moveToPendingSection {
     width: 30%; /* Each section now takes up 30% of the container width */
@@ -37,20 +42,41 @@ body {
     background-color: rgba(255, 255, 255, 0.8); /* Light background for the sections */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+    text-align: center; /* Center the text in each section */
 }
 
-/* Header styling */
-h1 {
-    text-align: left;
-    margin-bottom: 30px;
-    color: #007bff;
-    width: 100%;
+/* Flex layout for sections (horizontal layout) */
+.container > div {
+    display: flex; /* Row layout for sections */
+    justify-content: space-between; /* Space sections evenly */
+    width: 100%; /* Full width */
+    gap: 30px; /* Space between the sections */
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 15px;
+/* Modify KYC Registration section heading styling */
+#registerSection h2 {
+    font-weight: bold;  /* Remove bold */
+    color: #000000; /* Change to normal text color */
 }
+
+/* Adjust layout for mobile */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically on mobile */
+        align-items: center; /* Center the sections */
+    }
+
+    #registerSection, #findKycSection, #moveToPendingSection {
+        width: 80%; /* Make each section take up 80% of the width on small screens */
+    }
+
+    /* Adjust spacing for smaller screens */
+    #registerSection, #findKycSection, #moveToPendingSection {
+        gap: 15px;
+    }
+}
+
+/* Label and input styling remain unchanged */
 
 /* Label styling */
 label {
@@ -139,4 +165,4 @@ button:hover {
     #registerSection, #findKycSection, #moveToPendingSection {
         gap: 15px;
     }
-}
+}  

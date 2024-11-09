@@ -1,5 +1,6 @@
-const ADMIN_CONTRACT_ADDRESS = "0xD275F5De4Ca7c5DfED5175B7B8FDD38EB0244223"; // Replace with your actual contract address
-const ADMIN_CONTRACT_ABI = [...]; // Replace with the ABI of your contract
+const ADMIN_CONTRACT_ADDRESS = "0xFe87d9e1121c371dEBd5C1B5b3D9A92391628A7F"; // Replace with your actual contract address
+const ADMIN_CONTRACT_ABI = [{"inputs":[{"internalType":"address","name":"_kycStorage","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"approveKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"findKYCId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getKYCStatus","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"rejectKYC","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+; // Replace with the ABI of your contract
 
 async function connectToMetaMask() {
     if (window.ethereum) {
