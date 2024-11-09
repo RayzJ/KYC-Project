@@ -1,105 +1,149 @@
-/* General Styles */
+/* General Styles */ 
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('https://img.freepik.com/free-photo/3d-rendering-blockchain-technology_23-2151480192.jpg?t=st=1730443406~exp=1730447006~hmac=545922f02497a07ecb7ebea7f2b75fa91b5d9b7e1af901d2f86c0a436443adb3&w=740'); /* Replace with your background image */
-    background-size: cover;
-    background-position: center;
+    overflow-x: hidden;
+    background-color: #f4f4f4;
     font-family: Arial, sans-serif;
-    box-sizing: border-box; /* Ensures padding and borders don't add extra width/height */
-}
-
-/* Container for content */
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;  /* Maximum width to avoid stretching too much */
-    height: 100%;
-    padding: 0 10px;  /* Add some padding to the sides for better spacing */
-}
-
-/* Top-right buttons */
-.top-right {
-    position: absolute;
-    top: 20px;
-    right: 20px;  /* Ensure buttons align to the top-right */
-    display: flex;
-    gap: 10px; /* Space between buttons */
-    opacity: 0;
-    animation: slideIn 1s forwards 0.5s; /* Adding animation */
-}
-
-.top-right button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 120px; /* Optional: Set width for consistent button size */
-    text-align: center;
-}
-
-.top-right button:hover {
-    background-color: #0056b3;
-}
-
-/* Welcome section styling (Positioned left) */
-.welcome-section {
-    position: absolute;
-    top: 50%;
-    left: 10%; /* Adjusted to place it from the left side */
-    transform: translateY(-50%); /* Vertically center */
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    text-align: left; /* Align text to the left */
-    opacity: 0;
-    animation: slideIn 1s forwards 0.8s; /* Animation for the welcome section */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+/* Header section */
+.header {
+    width: 100%;
+    background-color: #db981d; /* Gold background color */
+    color: #000000;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid #333; /* Separator line */
+    opacity: 0;
+    animation: slideIn 1s forwards; /* Slide in animation */
+}
+
+/* Animation for the header */
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Logo styling */
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    animation: slideIn 1s ease-out 0.5s forwards; /* Animation delay for logo */
+}
+
+/* Button container within header */
+.button-container {
+    display: flex;
     gap: 10px;
 }
 
-/* First line text */
+/* Updated Button styling */
+.button-container button {
+    background-color: transparent; /* Removed background color */
+    color: #000000; /* Button text color */
+    border: none; /* Removed border */
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: uppercase; /* Make text uppercase */
+    font-weight: bold; /* Optional for added professionalism */
+    opacity: 0;
+    animation: slideIn 1s ease-out forwards;
+}
+
+.button-container button:nth-child(1) {
+    animation-delay: 0.6s;
+}
+.button-container button:nth-child(2) {
+    animation-delay: 0.8s;
+}
+.button-container button:nth-child(3) {
+    animation-delay: 1s;
+}
+.button-container button:nth-child(4) {
+    animation-delay: 1.2s;
+}
+
+.button-container button:hover {
+    background-color: #db981d; /* Hover background color */
+    color: white; /* Change text color on hover */
+}
+
+/* Main content container */
+.container {
+    width: 100%;
+    height: 100vh; /* Ensure the container takes up the full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px; /* Space for the header */
+    box-sizing: border-box;
+    background-image: url('https://i.pinimg.com/1200x/fc/58/36/fc583694de50374e536d84564579919e.jpg'); /* Background image for main content */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Keep the background fixed when scrolling */
+    animation: fadeIn 1.5s forwards; /* Animation for main content */
+}
+
+/* Animation for fading in the main content */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Welcome section styling */
+.welcome-section {
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    animation: slideInText 1.5s ease-out forwards;
+}
+
+/* Animation for sliding in welcome text */
+@keyframes slideInText {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Welcome text styles */
 .welcome-section h1 {
     font-size: 3em;
     margin: 0;
-    animation: slideInText 1s forwards 0.8s; /* Animation for first line */
 }
 
-/* Second line text */
 .welcome-section p {
     font-size: 1.2em;
     margin-top: 10px;
-    animation: slideInText 1s forwards 1.3s; /* Animation for second line */
-}
-
-/* Keyframes for sliding animation */
-@keyframes slideIn {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Keyframes for text sliding from left to middle */
-@keyframes slideInText {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    animation: slideInText 1.5s ease-out 0.5s forwards; /* Animation for the welcome message */
 }

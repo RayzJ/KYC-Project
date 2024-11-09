@@ -1,47 +1,93 @@
-/* Container styling */
+/* Apply background image to the entire body */
+body {
+    background-image: url('https://i.pinimg.com/564x/70/79/48/70794809ac1ad01280d5b30860d7829d.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure body covers full height */
+}
+
+/* Main container for content */
 .container {
     width: 80%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 1000px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: slideIn 1s forwards; /* Apply sliding animation to the container */
+    animation: slideIn 1s forwards;
+    display: flex; /* Flexbox layout */
+    flex-direction: row; /* Arrange sections in a row */
+    justify-content: space-between; /* Distribute sections evenly */
+    gap: 30px; /* Add space between sections */
 }
 
-/* Section styling */
-#registerSection, #checkSection {
-    margin-bottom: 40px;
-    animation: slideIn 1s forwards; /* Add slide animation for each section */
+/* Section styling for each form block */
+#registerSection, #findKycSection, #moveToPendingSection {
+    width: 30%; /* Each section now takes up 30% of the container width */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px; /* Add padding for spacing inside sections */
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for the sections */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
 }
 
-/* Form input and button styling */
+/* Header styling */
+h1 {
+    text-align: left;
+    margin-bottom: 30px;
+    color: #007bff;
+    width: 100%;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Label styling */
 label {
     font-weight: bold;
     display: block;
-    margin: 10px 0 5px;
-    animation: slideIn 1s forwards; /* Slide animation for labels */
+    margin-bottom: 5px;
+    color: #333;
 }
 
+/* Input fields styling */
 input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    animation: slideIn 1s forwards; /* Slide animation for inputs */
+    padding: 12px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
+input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+}
+
+/* Button styling */
 button {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    animation: slideIn 1s forwards; /* Slide animation for buttons */
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -53,7 +99,7 @@ button:hover {
     position: relative;
     opacity: 0;
     left: -100%;
-    animation: slideIn 1s forwards; /* Adjust the timing as per your requirement */
+    animation: slideIn 1s forwards;
 }
 
 /* Keyframes for sliding effect */
@@ -68,13 +114,29 @@ button:hover {
     }
 }
 
-/* Result styling */
-#kycResult {
+/* Styling for result and status display */
+#kycIdDisplay, #moveStatusDisplay {
     margin-top: 20px;
     padding: 10px;
     background-color: #e9ecef;
     border-radius: 5px;
-    animation: slideIn 1s forwards; /* Slide animation for result */
+    animation: slideIn 1s forwards;
+    color: #333;
 }
 
-/* For elements like buttons, inputs, sections, etc., you can also add sliding effects individually as shown above. */
+/* Make form more responsive with Flexbox */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically on small screens */
+        gap: 20px;
+    }
+
+    #registerSection, #findKycSection, #moveToPendingSection {
+        width: 100%; /* Each section takes full width on small screens */
+    }
+    
+    /* Adjust spacing for smaller screens */
+    #registerSection, #findKycSection, #moveToPendingSection {
+        gap: 15px;
+    }
+}
