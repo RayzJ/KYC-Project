@@ -1,15 +1,25 @@
-// ABI and contract address from Remix deployment in Ganache
-const kycListContractABI = [{"inputs":[{"internalType":"address","name":"_kycStorageAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllApprovedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllPendingKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRegisteredKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRejectedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}];
-const kycListContractAddress = "0xD275F5De4Ca7c5DfED5175B7B8FDD38EB0244223"; // Replace with the actual deployed contract address in Ganache
+// ABI and contract address from Remix deployment
+const kycListContractABI = [];  // existing ABI
+const kycListContractAddress = "0xD275F5De4Ca7c5DfED5175B7B8FDD38EB0244223"; // Replace with the actual deployed contract address
 
 // Initialize ethers.js and contract instance
 let provider, signer, kycListContract;
 
 async function initialize() {
-    // Connect to Ganache using ethers.js
-    provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545"); // Ganache default URL
-    signer = provider.getSigner(0);
-    kycListContract = new ethers.Contract(kycListContractAddress, kycListContractABI, signer);
+    if (window.ethereum) {
+        try {
+            // Request account access if needed
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            kycListContract = new ethers.Contract(kycListContractAddress, kycListContractABI, signer);
+            console.log("Connected to MetaMask successfully!");
+        } catch (error) {
+            console.error("User denied account access or an error occurred:", error);
+        }
+    } else {
+        console.error("MetaMask is not installed. Please install MetaMask to use this application.");
+    }
 }
 
 // Fetch and display KYC data based on the function name

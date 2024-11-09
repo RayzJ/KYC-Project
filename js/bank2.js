@@ -1,16 +1,21 @@
-// Include ethers.js (if using as a module, you can remove the following line)
-// const { ethers } = require("ethers");
+const BANK_CONTRACT_ADDRESS = "0x450b0B52aF1065Be7284e63933Be218292B64946";  // Replace with your contract address
+const BANK_CONTRACT_ABI = [...];  // existing ABI
 
-const BANK_CONTRACT_ADDRESS = "0x450b0B52aF1065Be7284e63933Be218292B64946";  // Replace with the deployed contract address from RemixVM
-const BANK_CONTRACT_ABI = [{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"moveToPendingKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"registerKYC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_kycStorage","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"bankAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"findKYCId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
-
-async function connectToRemix() {
-    const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545"); // Adjust to your Remix/ganache URL
-    const signer = provider.getSigner(0);
-    const contract = new ethers.Contract(BANK_CONTRACT_ADDRESS, BANK_CONTRACT_ABI, signer);
-
-    console.log("Connected to RemixVM successfully!");
-    return contract;
+async function connectToMetaMask() {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(BANK_CONTRACT_ADDRESS, BANK_CONTRACT_ABI, signer);
+            console.log("Connected to MetaMask successfully!");
+            return contract;
+        } catch (error) {
+            console.error("User denied account access or an error occurred:", error);
+        }
+    } else {
+        console.error("MetaMask is not installed. Please install MetaMask to use this application.");
+    }
 }
 
 // Register a new user
@@ -19,7 +24,7 @@ async function registerUser() {
     const dob = document.getElementById("dobInput").value;
 
     try {
-        const contract = await connectToRemix();
+        const contract = await connectToMetaMask();
         const tx = await contract.registerKYC(name, dob);
         await tx.wait();
 
@@ -37,7 +42,7 @@ async function findKycId() {
     const dob = document.getElementById("findDobInput").value;
 
     try {
-        const contract = await connectToRemix();
+        const contract = await connectToMetaMask();
         const userId = await contract.findKYCId(name, dob);
 
         console.log("KYC ID:", userId.toString());
@@ -53,7 +58,7 @@ async function moveToPending() {
     const userId = document.getElementById("userIdToPending").value;
 
     try {
-        const contract = await connectToRemix();
+        const contract = await connectToMetaMask();
         const tx = await contract.moveToPendingKYC(userId);
         await tx.wait();
 
