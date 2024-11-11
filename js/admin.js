@@ -1,78 +1,92 @@
-const ADMIN_CONTRACT_ADDRESS = "0xA87f3D70A120c6827B11A7842C64F60390836E02"; // Replace with your actual contract address
+const ADMIN_CONTRACT_ADDRESS = "0x9cC590156d39519657e117EfB3B6ace801633878"; // Replace with your actual contract address
 const ADMIN_CONTRACT_ABI = [{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"approveKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"rejectKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_kycStorage","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"findKYCId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getKYCStatus","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
-; // Replace with the ABI of your contract
+;
 
+let contract;
+
+// Connect to MetaMask and get contract instance
 async function connectToMetaMask() {
     if (window.ethereum) {
+        console.log("MetaMask is available:", window.ethereum);
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
-            const contract = new ethers.Contract(ADMIN_CONTRACT_ADDRESS, ADMIN_CONTRACT_ABI, signer);
+            contract = new ethers.Contract(ADMIN_CONTRACT_ADDRESS, ADMIN_CONTRACT_ABI, signer);
+
             console.log("Connected to MetaMask successfully!");
-            return contract;
+
+            // Get the signer address and admin address
+            const signerAddress = await signer.getAddress();
+            console.log("Signer address:", signerAddress);
+
+            const adminAddress = await contract.admin();
+            console.log("Admin address from the contract:", adminAddress);
+
         } catch (error) {
             console.error("User denied account access or an error occurred:", error);
+            alert("Error connecting to MetaMask: " + error.message);
         }
     } else {
         console.error("MetaMask is not installed. Please install MetaMask to use this application.");
+        alert("MetaMask is not installed. Please install MetaMask.");
     }
 }
 
-// Fetch and display pending users from local storage
-function displayPendingUsers() {
-    const tbody = document.querySelector('#pendingUsers tbody');
-    tbody.innerHTML = ''; // Clear existing rows
-
-    // Get pending users from localStorage
-    const pendingUsers = JSON.parse(localStorage.getItem('pendingUsers')) || [];
-
-    // Populate the table with pending users
-    pendingUsers.forEach(user => {
-        tbody.innerHTML += `
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.dob}</td>
-                <td>${user.bankName}</td>
-                <td>
-                    <button onclick="acceptUser(${user.id})">Accept</button>
-                    <button onclick="rejectUser(${user.id})">Reject</button>
-                </td>
-            </tr>
-        `;
-    });
-}
-
-// Accept user function
-async function acceptUser(id) {
-    let pendingUsers = JSON.parse(localStorage.getItem('pendingUsers')) || [];
-    const user = pendingUsers.find(user => user.id === id);
-    if (user) {
-        let acceptedUsers = JSON.parse(localStorage.getItem('acceptedUsers')) || [];
-        acceptedUsers.push(user);
-        localStorage.setItem('acceptedUsers', JSON.stringify(acceptedUsers));
-        pendingUsers = pendingUsers.filter(user => user.id !== id);
-        localStorage.setItem('pendingUsers', JSON.stringify(pendingUsers));
-        alert(`User with ID ${id} has been accepted.`);
-        displayPendingUsers();
+// Approve KYC function
+async function approveKYC() {
+    const userId = document.getElementById("userIdToApproveReject").value;
+    if (userId && contract) { // Ensure contract is initialized
+        try {
+            const tx = await contract.approveKYC(userId);
+            console.log(`KYC approved for user ID: ${userId}`, tx);
+            alert(`KYC approved for user ID: ${userId}`);
+        } catch (error) {
+            console.error("Error in approving KYC:", error);
+            alert("Error in approving KYC. Check the console for details.");
+        }
+    } else {
+        alert("Please enter a valid User ID and make sure the contract is connected.");
     }
 }
 
-// Reject user function
-async function rejectUser(id) {
-    let pendingUsers = JSON.parse(localStorage.getItem('pendingUsers')) || [];
-    const user = pendingUsers.find(user => user.id === id);
-    if (user) {
-        let rejectedUsers = JSON.parse(localStorage.getItem('rejectedUsers')) || [];
-        rejectedUsers.push(user);
-        localStorage.setItem('rejectedUsers', JSON.stringify(rejectedUsers));
-        pendingUsers = pendingUsers.filter(user => user.id !== id);
-        localStorage.setItem('pendingUsers', JSON.stringify(pendingUsers));
-        alert(`User with ID ${id} has been rejected.`);
-        displayPendingUsers();
+// Reject KYC function
+async function rejectKYC() {
+    const userId = document.getElementById("userIdToApproveReject").value;
+    if (userId && contract) { // Ensure contract is initialized
+        try {
+            const tx = await contract.rejectKYC(userId);
+            console.log(`KYC rejected for user ID: ${userId}`, tx);
+            alert(`KYC rejected for user ID: ${userId}`);
+        } catch (error) {
+            console.error("Error in rejecting KYC:", error);
+            alert("Error in rejecting KYC. Check the console for details.");
+        }
+    } else {
+        alert("Please enter a valid User ID and make sure the contract is connected.");
     }
 }
 
-// Initialize the contract connection on page load
-document.addEventListener('DOMContentLoaded', displayPendingUsers);
+
+// Get KYC status function
+async function getKYCStatus() {
+    const userId = document.getElementById("userIdForStatus").value;
+    if (userId) {
+        try {
+            await connectToMetaMask();
+            const status = await contract.getKYCStatus(userId);
+            console.log(`KYC status for user ID: ${userId}: ${status}`);
+            document.getElementById("statusDisplay").innerText = `KYC Status: ${status}`;
+        } catch (error) {
+            console.error("Error in getting KYC status:", error);
+            alert("Error in getting KYC status. Check the console for details.");
+        }
+    } else {
+        alert("Please enter a valid User ID.");
+    }
+}
+
+// Initialize contract when buttons are clicked
+document.getElementById("approveButton").addEventListener("click", approveKYC);
+document.getElementById("rejectButton").addEventListener("click", rejectKYC);
+document.getElementById("getStatusButton").addEventListener("click", getKYCStatus);

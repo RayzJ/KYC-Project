@@ -13,15 +13,15 @@
         <div id="approveRejectContainer">
             <h2>Approve/Reject KYC</h2>
             <input type="text" id="userIdToApproveReject" placeholder="Enter User ID">
-            <button id="approveButton">Approve</button>
-            <button id="rejectButton">Reject</button>
+            <button id="approveButton" onclick="approveKYC()">Approve</button>
+            <button id="rejectButton" onclick="rejectKYC()">Reject</button>
         </div>
 
         <!-- Section to get KYC status -->
         <div id="kycStatusContainer">
             <h2>Get KYC Status</h2>
             <input type="text" id="userIdForStatus" placeholder="Enter User ID">
-            <button id="getStatusButton">Get Status</button>
+            <button id="getStatusButton" onclick="getKYCStatus()">Get Status</button>
             <p id="statusDisplay"></p>
         </div>
 

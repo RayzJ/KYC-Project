@@ -1,13 +1,23 @@
-const BANK_CONTRACT_ADDRESS = "0x23123496E06dCeE622721De0Ab5B3b76777E9C58";  // Replace with your contract address
+const BANK_CONTRACT_ADDRESS = "0x2bBa75E388b99e7060a2051360A16b30ac256e87";  // Replace with your contract address
 const BANK_CONTRACT_ABI = [{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"moveToPendingKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"registerKYC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_kycStorage","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"bankAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"findKYCId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
 ;  // existing ABI
+
+// Manual Signer Address (Set this address manually if needed)
+const MANUAL_SIGNER_ADDRESS = "0x5fc557e16e505a22d1c4e061cc1cab9e37fc90fe1493d257bda16f9e5a03886d";  // Replace with your address
 
 async function connectToMetaMask() {
     if (window.ethereum) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            // Retrieve signer address from MetaMask
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
+
+            // Use manual signer address if provided, otherwise use MetaMask signer
+            const signerAddress = MANUAL_SIGNER_ADDRESS || await signer.getAddress();
+            console.log("Signer address:", signerAddress);
+
             const contract = new ethers.Contract(BANK_CONTRACT_ADDRESS, BANK_CONTRACT_ABI, signer);
             console.log("Connected to MetaMask successfully!");
             return contract;
@@ -18,7 +28,6 @@ async function connectToMetaMask() {
         console.error("MetaMask is not installed. Please install MetaMask to use this application.");
     }
 }
-
 // Register a new user
 async function registerUser() {
     const name = document.getElementById("nameInput").value;
