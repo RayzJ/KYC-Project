@@ -1,30 +1,32 @@
-const ADMIN_CONTRACT_ADDRESS = "0x9cC590156d39519657e117EfB3B6ace801633878"; // Replace with your actual contract address
+const ADMIN_CONTRACT_ADDRESS = "0xC724C8f70842EB1507f9C22aDb600bb7b1B4A89f"; // Replace with your actual contract address
 const ADMIN_CONTRACT_ABI = [{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"approveKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"rejectKYC","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_kycStorage","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"}],"name":"findKYCId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getKYCStatus","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
 ;
-
 let contract;
+// Manually input bank account address
+const adminAccountAddress = '0x1f848B6B5FCf3D418285228830EA170f65B48612'; // Replace this with the actual bank account address
 
-// Connect to MetaMask and get contract instance
 async function connectToMetaMask() {
     if (window.ethereum) {
         console.log("MetaMask is available:", window.ethereum);
         try {
+            // Request account access
             await window.ethereum.request({ method: 'eth_requestAccounts' });
+
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
+
+            // Manually set the bank account address as the signer
+            const signer = provider.getSigner(adminAccountAddress); // Use the provided bank account address
+
+            // Use the signer to create a contract instance
             contract = new ethers.Contract(ADMIN_CONTRACT_ADDRESS, ADMIN_CONTRACT_ABI, signer);
 
-            console.log("Connected to MetaMask successfully!");
-
-            // Get the signer address and admin address
+            // Print out the connected bank address
             const signerAddress = await signer.getAddress();
-            console.log("Signer address:", signerAddress);
+            console.log("Connected admin Address:", signerAddress);
 
-            const adminAddress = await contract.admin();
-            console.log("Admin address from the contract:", adminAddress);
-
+            return contract;
         } catch (error) {
-            console.error("User denied account access or an error occurred:", error);
+            console.error("Error connecting to MetaMask or the admin account:", error);
             alert("Error connecting to MetaMask: " + error.message);
         }
     } else {

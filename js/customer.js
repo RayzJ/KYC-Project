@@ -1,7 +1,13 @@
 // ABI and contract address from Remix deployment
-const kycListContractABI = [{"inputs":[{"internalType":"address","name":"_kycStorageAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllApprovedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllPendingKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRegisteredKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRejectedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]
-;  // existing ABI
-const kycListContractAddress = "0x55e22a7e0D725c2eFbAdD11AdCb261c7D13cA17B"; // Replace with the actual deployed contract address
+const kycListContractABI = [{"inputs":[{"internalType":"address","name":"_kycStorageAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"kycStorage","outputs":[{"internalType":"contract KYCStorage","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllApprovedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllPendingKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRegisteredKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"listAllRejectedKYC","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"dob","type":"string"},{"internalType":"address","name":"registeredBy","type":"address"}],"internalType":"struct KYCStorage.KYCInfo[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}];
+const kycListContractAddress = "0xA1ec5e77a2069CB300aC3444AAA34948c50e3ca1"; // Replace with the actual deployed contract address
+
+// Mapping of bank addresses to bank names
+const bankNameMapping = {
+    "0x1f848B6B5FCf3D418285228830EA170f65B48612": "Bank 1", // Replace with actual Ethereum address and bank name
+    "0xBa9dB73224b3e3194Eb5109144a012B8F1722efc": "Bank 2", // Replace with actual Ethereum address and bank name
+    // Add more mappings as needed
+};
 
 // Initialize ethers.js and contract instance
 let provider, signer, kycListContract;
@@ -37,12 +43,15 @@ async function fetchAndDisplayData(fetchFunctionName, statusLabel) {
         }
 
         kycData.forEach(user => {
+            // Get bank name from mapping, or show address if not found
+            const bankName = bankNameMapping[user.registeredBy] || user.registeredBy;
+
             tbody.innerHTML += `
                 <tr>
                     <td>${user.id}</td>
                     <td>${user.name}</td>
                     <td>${user.dob}</td>
-                    <td>${user.registeredBy}</td>
+                    <td>${bankName}</td>
                     <td>${statusLabel}</td>
                 </tr>
             `;
